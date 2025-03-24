@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TileSlicer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2a1ab9671e8790c6a8efeeec39c387cb3cd8cace")]
 [assembly: System.Reflection.AssemblyProductAttribute("TileSlicer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TileSlicer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

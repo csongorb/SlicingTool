@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8lEH5JeLb5D2vq9wERga5t9onU2N6RVKsH3UnKUYbZHVaeNnyeLYZNzBf/vAnRqoqVAAVjbPxvBHJSKHHS0Djg==",
+  "dgSpecHash": "ydmf0o03PRuvr5avZLFVjuF3jEJjtvo6imIThFdLgiO28yR2erq4xLHZNe/APtrh5XEUrnDA24xJ+tTiw9yN4w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maure\\Desktop\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
+  "projectFilePath": "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maure\\.nuget\\packages\\excss\\4.2.3\\excss.4.2.3.nupkg.sha512",
     "C:\\Users\\maure\\.nuget\\packages\\harfbuzzsharp\\7.3.0.2\\harfbuzzsharp.7.3.0.2.nupkg.sha512",

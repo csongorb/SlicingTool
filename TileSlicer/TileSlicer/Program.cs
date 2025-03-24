@@ -9,12 +9,12 @@ namespace SvgTileGenerator {
     }
 
     internal static class Program {
-        private static long _processedTileCount = 0;
-        private static int _currentZoom = 0;
-        private static long _totalTileCount = 0;
+        private static long _processedTileCount;
+        private static int _currentZoom;
+        private static long _totalTileCount;
         private static DateTime _startTime;
 
-        private static void Main(string[] args) {
+        private static void Main() {
             Console.Clear();
             PrintHeader();
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\maure\\Desktop\\TileSlicer\\TileSlicer\\TileSlicer.csproj": {}
+    "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\maure\\Desktop\\TileSlicer\\TileSlicer\\TileSlicer.csproj": {
+    "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\maure\\Desktop\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
+        "projectUniqueName": "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
         "projectName": "TileSlicer",
-        "projectPath": "C:\\Users\\maure\\Desktop\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
+        "projectPath": "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
         "packagesPath": "C:\\Users\\maure\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\maure\\Desktop\\TileSlicer\\TileSlicer\\obj\\",
+        "outputPath": "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\maure\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -61,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
