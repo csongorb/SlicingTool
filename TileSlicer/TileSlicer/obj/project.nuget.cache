@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ydmf0o03PRuvr5avZLFVjuF3jEJjtvo6imIThFdLgiO28yR2erq4xLHZNe/APtrh5XEUrnDA24xJ+tTiw9yN4w==",
+  "dgSpecHash": "ZHO/K0MG+Nc177aODzTnk4bsvwCaIyV4bJXjKVJrLaPj6xq4MeiUJwigIXvUto36bvDO1z4GMbvEIGppJ4nASg==",
   "success": true,
   "projectFilePath": "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\maure\\.nuget\\packages\\harfbuzzsharp\\7.3.0.2\\harfbuzzsharp.7.3.0.2.nupkg.sha512",
     "C:\\Users\\maure\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\7.3.0.2\\harfbuzzsharp.nativeassets.macos.7.3.0.2.nupkg.sha512",
     "C:\\Users\\maure\\.nuget\\packages\\harfbuzzsharp.nativeassets.win32\\7.3.0.2\\harfbuzzsharp.nativeassets.win32.7.3.0.2.nupkg.sha512",
+    "C:\\Users\\maure\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.4\\microsoft.net.illink.tasks.8.0.4.nupkg.sha512",
     "C:\\Users\\maure\\.nuget\\packages\\shimskiasharp\\2.0.0.4\\shimskiasharp.2.0.0.4.nupkg.sha512",
     "C:\\Users\\maure\\.nuget\\packages\\skiasharp\\2.88.8\\skiasharp.2.88.8.nupkg.sha512",
     "C:\\Users\\maure\\.nuget\\packages\\skiasharp.harfbuzz\\2.88.8\\skiasharp.harfbuzz.2.88.8.nupkg.sha512",
@@ -15,7 +16,11 @@
     "C:\\Users\\maure\\.nuget\\packages\\skiasharp.nativeassets.win32\\2.88.8\\skiasharp.nativeassets.win32.2.88.8.nupkg.sha512",
     "C:\\Users\\maure\\.nuget\\packages\\svg.custom\\2.0.0.4\\svg.custom.2.0.0.4.nupkg.sha512",
     "C:\\Users\\maure\\.nuget\\packages\\svg.model\\2.0.0.4\\svg.model.2.0.0.4.nupkg.sha512",
-    "C:\\Users\\maure\\.nuget\\packages\\svg.skia\\2.0.0.4\\svg.skia.2.0.0.4.nupkg.sha512"
+    "C:\\Users\\maure\\.nuget\\packages\\svg.skia\\2.0.0.4\\svg.skia.2.0.0.4.nupkg.sha512",
+    "C:\\Users\\maure\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\8.0.4\\microsoft.netcore.app.runtime.win-x86.8.0.4.nupkg.sha512",
+    "C:\\Users\\maure\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\8.0.4\\microsoft.windowsdesktop.app.runtime.win-x86.8.0.4.nupkg.sha512",
+    "C:\\Users\\maure\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\8.0.4\\microsoft.aspnetcore.app.runtime.win-x86.8.0.4.nupkg.sha512",
+    "C:\\Users\\maure\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\8.0.4\\microsoft.netcore.app.crossgen2.win-x64.8.0.4.nupkg.sha512"
   ],
   "logs": []
 }

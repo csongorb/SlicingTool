@@ -1,7 +1,7 @@
 is_global = true
 build_property.EnableAotAnalyzer = 
-build_property.EnableSingleFileAnalyzer = 
-build_property.EnableTrimAnalyzer = 
+build_property.EnableSingleFileAnalyzer = true
+build_property.EnableTrimAnalyzer = true
 build_property.IncludeAllContentForSelfExtract = 
 build_property.TargetFramework = net8.0
 build_property.TargetPlatformMinVersion = 
@@ -14,4 +14,4 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TileSlicer
 build_property.ProjectDir = C:\Users\maure\Git\Devolution\SlicingTool\TileSlicer\TileSlicer\
 build_property.EnableComHosting = 
-build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
