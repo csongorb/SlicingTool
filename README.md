@@ -22,5 +22,5 @@ Choose to use the default tile dimension (512 pixels) or enter a custom output f
 For each image, input the minimum and maximum zoom level. They are not allowed to overlap since all of them will be saved to the same output folder. 
 Both can be inputted at the same time by writing min-max (e.g. 1-4)
 
-### License:
+## License:
 This project is licensed under the MIT License.
