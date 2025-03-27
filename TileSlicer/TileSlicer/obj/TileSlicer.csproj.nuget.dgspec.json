@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj": {}
+    "D:\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj": {
+    "D:\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
+        "projectUniqueName": "D:\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
         "projectName": "TileSlicer",
-        "projectPath": "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
+        "projectPath": "D:\\SlicingTool\\TileSlicer\\TileSlicer\\TileSlicer.csproj",
         "packagesPath": "C:\\Users\\maure\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\maure\\Git\\Devolution\\SlicingTool\\TileSlicer\\TileSlicer\\obj\\",
+        "outputPath": "D:\\SlicingTool\\TileSlicer\\TileSlicer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\maure\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -34,23 +34,12 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.NET.ILLink.Tasks": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[8.0.4, )",
-              "autoReferenced": true
-            },
             "Svg.Skia": {
               "target": "Package",
               "version": "[2.0.0.4, )"
@@ -67,35 +56,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-              "version": "[8.0.4, 8.0.4]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Crossgen2.win-x64",
-              "version": "[8.0.4, 8.0.4]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Runtime.win-x86",
-              "version": "[8.0.4, 8.0.4]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-              "version": "[8.0.4, 8.0.4]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x86": {
-          "#import": []
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
