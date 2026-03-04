@@ -1,52 +1,62 @@
-# Prerequisites
-*.d
+# Build results
+bin/
+obj/
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# Rider
+.idea/
 
-# Precompiled Headers
-*.gch
-*.pch
+# VS Code
+.vscode/
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# Logs
+*.log
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# OS generated files
+.DS_Store
+Thumbs.db
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+# NuGet
+*.nupkg
+packages/
+!packages/build/
+*.snupkg
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# Dotnet tools
+.dotnet/
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Test results
+TestResults/
+
+# Publish output
+publish/
+
+# Environment files
+.env
+
+# Coverage reports
+coverage/
+*.coverage
+*.coveragexml
+
+# Temporary files
+*.tmp
+*.temp
+
+# SQLite database (optional – remove if you want to track DB)
+*.db
+*.sqlite
+*.sqlite3
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Rider / JetBrains
+*.sln.iml
