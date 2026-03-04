@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using Svg.Skia;
+using System.Text.RegularExpressions;
 
 
 namespace SvgTileGenerator {
@@ -12,35 +13,57 @@ namespace SvgTileGenerator {
 	internal static class Program {
 		private static long _processedTileCount;
 
+		private static bool TryGetTileGrid(float svgWidth, float svgHeight, int tileSize, int zoom,
+			out int cols, out int rows, out float scale, out float sourceTileSize) {
+			scale = (float)Math.Pow(2, zoom);
+			sourceTileSize = tileSize / scale;
+			if (sourceTileSize <= 0 || svgWidth <= 0 || svgHeight <= 0) {
+				cols = 0;
+				rows = 0;
+				return false;
+			}
+			cols = (int)Math.Ceiling(svgWidth / sourceTileSize);
+			rows = (int)Math.Ceiling(svgHeight / sourceTileSize);
+			return cols >= 1 && rows >= 1;
+		}
+
 		private static void Main() {
-			Console.Clear();
-			PrintHeader();
+			try {
+				try {
+					Console.Clear();
+				} catch {
+					// Console.Clear() may fail in non-interactive environments
+				}
+				PrintHeader();
 
-			var numImages = GetNumberOfImages();
-			List<ImageZoomInfo> images = GetImagePaths(numImages);
-			var outputDir = GetOutputDirectory();
-			Console.WriteLine();
-			var tileSize = GetTileSize();
-			Console.WriteLine();
-			GetZoomLevels(images);
-			Console.WriteLine();
-			var totalTileCount = ComputeTotalTileCount(images, tileSize);
-			Console.WriteLine($"Total tiles to generate: {totalTileCount}");
-			Console.WriteLine();
-			Console.WriteLine("-----------------------------------------");
-			Console.WriteLine();
-			var startTime = DateTime.Now;
-			_processedTileCount = 0;
+				var numImages = GetNumberOfImages();
+				List<ImageZoomInfo> images = GetImagePaths(numImages);
+				var outputDir = GetOutputDirectory();
+				Console.WriteLine();
+				var tileSize = GetTileSize();
+				Console.WriteLine();
+				GetZoomLevels(images);
+				Console.WriteLine();
+				var totalTileCount = ComputeTotalTileCount(images, tileSize);
+				Console.WriteLine($"Total tiles to generate: {totalTileCount}");
+				Console.WriteLine();
+				Console.WriteLine("-----------------------------------------");
+				Console.WriteLine();
+				var startTime = DateTime.Now;
+				_processedTileCount = 0;
 
-			var progressTimer = StartProgressTimer(totalTileCount, startTime);
+				var progressTimer = StartProgressTimer(totalTileCount, startTime);
 
-			ProcessImages(images, outputDir, tileSize);
+				ProcessImages(images, outputDir, tileSize);
 
-			progressTimer.Dispose();
-			var totalElapsed = DateTime.Now - startTime;
-			Console.WriteLine();
-			Console.WriteLine($@"Tile generation complete. Total time: {totalElapsed:hh\:mm\:ss}.");
-			Console.ReadLine();
+				progressTimer.Dispose();
+				var totalElapsed = DateTime.Now - startTime;
+				Console.WriteLine();
+				Console.WriteLine($@"Tile generation complete. Total time: {totalElapsed:hh\:mm\:ss}.");
+				Console.ReadLine();
+			} catch (Exception ex) {
+				Console.Error.WriteLine($"An unexpected error occurred: {ex}");
+			}
 		}
 
 		private static void PrintHeader() {
@@ -88,6 +111,7 @@ namespace SvgTileGenerator {
 		}
 
 		private static void GetZoomLevels(List<ImageZoomInfo> images) {
+			var rangeRegex = new Regex("^\\s*(-?\\d+)\\s*-\\s*(-?\\d+)\\s*$", RegexOptions.Compiled);
 			var lastMaxZoom = -1;
 			foreach(var img in images) {
 				var fileName = Path.GetFileName(img.ImagePath);
@@ -95,18 +119,14 @@ namespace SvgTileGenerator {
 					Console.Write($"Enter minimum zoom level for image '{fileName}': ");
 					var input = Console.ReadLine()?.Trim() ?? "";
 					int minZoom, maxZoom;
-					if (input.Contains('-')) {
-						var parts = input.Split('-');
-						if (parts.Length != 2 ||
-						    !int.TryParse(parts[0].Trim(), out minZoom) ||
-						    !int.TryParse(parts[1].Trim(), out maxZoom)) {
-							Console.WriteLine("Invalid format. Please re-enter.");
-							continue;
-						}
+					var rangeMatch = rangeRegex.Match(input);
+					if (rangeMatch.Success) {
+						minZoom = int.Parse(rangeMatch.Groups[1].Value);
+						maxZoom = int.Parse(rangeMatch.Groups[2].Value);
 						Console.WriteLine($"Maximum zoom level for image '{fileName}': {maxZoom}");
 					} else {
 						if (!int.TryParse(input, out minZoom)) {
-							Console.WriteLine("Invalid input. Please enter a valid number.");
+							Console.WriteLine("Invalid input. Please enter a valid number or range like -4--1.");
 							continue;
 						}
 						Console.Write($"Enter maximum zoom level for image '{fileName}': ");
@@ -147,10 +167,11 @@ namespace SvgTileGenerator {
 				var svgWidth = cullRect.Width;
 				var svgHeight = cullRect.Height;
 				for(var zoom = img.MinZoom;zoom <= img.MaxZoom;zoom++) {
-					var scale = (float)Math.Pow(2, zoom);
-					var sourceTileSize = tileSize / scale;
-					var cols = (int)Math.Ceiling(svgWidth / sourceTileSize);
-					var rows = (int)Math.Ceiling(svgHeight / sourceTileSize);
+					if (!TryGetTileGrid(svgWidth, svgHeight, tileSize, zoom, out var cols, out var rows, out _, out _)) {
+						Console.WriteLine(
+							$"Zoom level {zoom} has less than 1 tile; skipping until a zoom with >= 1 tile is reached.");
+						continue;
+					}
 					totalTileCount += (long)cols * rows;
 				}
 			}
@@ -185,10 +206,12 @@ namespace SvgTileGenerator {
 				var svgWidth = cullRect.Width;
 				var svgHeight = cullRect.Height;
 				for(var zoom = img.MinZoom;zoom <= img.MaxZoom;zoom++) {
-					var scale = (float)Math.Pow(2, zoom);
-					var sourceTileSize = tileSize / scale;
-					var cols = (int)Math.Ceiling(svgWidth / sourceTileSize);
-					var rows = (int)Math.Ceiling(svgHeight / sourceTileSize);
+					if (!TryGetTileGrid(svgWidth, svgHeight, tileSize, zoom, out var cols, out var rows,
+						out var scale, out var sourceTileSize)) {
+						Console.WriteLine(
+							$"Zoom level {zoom} has less than 1 tile; skipping until a zoom with >= 1 tile is reached.");
+						continue;
+					}
 					Console.WriteLine();
 					Console.ForegroundColor = ConsoleColor.Yellow;
 					Console.WriteLine($"Zoom level {zoom}: calculated {cols} columns x {rows} rows (scale: {scale}).");
