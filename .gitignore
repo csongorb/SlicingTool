@@ -1,9 +1,8 @@
 # Build results
-bin/
-obj/
-
-# Visual Studio files
-.vs/
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
 *.user
 *.suo
 *.userosscache
@@ -14,6 +13,7 @@ obj/
 
 # VS Code
 .vscode/
+.vs/
 
 # Logs
 *.log

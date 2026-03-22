@@ -42,19 +42,23 @@ namespace SvgTileGenerator {
 				Console.WriteLine();
 				var tileSize = GetTileSize();
 				Console.WriteLine();
+				var enableOptimization = GetEnableOptimization();
+				Console.WriteLine();
 				GetZoomLevels(images);
 				Console.WriteLine();
 				var totalTileCount = ComputeTotalTileCount(images, tileSize);
 				Console.WriteLine($"Total tiles to generate: {totalTileCount}");
 				Console.WriteLine();
-				Console.WriteLine("-----------------------------------------");
+				Console.WriteLine($"Optimization enabled: {enableOptimization}");
+				if (enableOptimization) Console.WriteLine("Bucket size: 32 bytes");
+                Console.WriteLine("-----------------------------------------");
 				Console.WriteLine();
 				var startTime = DateTime.Now;
 				_processedTileCount = 0;
 
 				var progressTimer = StartProgressTimer(totalTileCount, startTime);
 
-				ProcessImages(images, outputDir, tileSize);
+				ProcessImages(images, outputDir, tileSize, enableOptimization);
 
 				progressTimer.Dispose();
 				var totalElapsed = DateTime.Now - startTime;
@@ -76,7 +80,17 @@ namespace SvgTileGenerator {
 
 		private static int GetNumberOfImages() {
 			Console.Write("Enter the number of images to process: ");
-			return int.Parse(Console.ReadLine() ?? "0");
+
+            var numImages = int.Parse(Console.ReadLine() ?? "0");
+
+            if (numImages < 1)
+			{
+                Console.WriteLine("Number of images must be at least 1. Exiting.....");
+                Console.WriteLine("Press any key....");
+                Console.ReadKey();
+                Environment.Exit(1);
+            }
+			return numImages;
 		}
 
 		private static List<ImageZoomInfo> GetImagePaths(int numImages) {
@@ -85,7 +99,9 @@ namespace SvgTileGenerator {
 				Console.Write($"Enter path for image #{i + 1}: ");
 				var imagePath = Console.ReadLine()?.Replace('"', ' ').Trim() ?? "";
 				if (string.IsNullOrWhiteSpace(imagePath) || !File.Exists(imagePath)) {
-					Console.WriteLine("Invalid image path. Exiting.");
+					Console.WriteLine("Invalid image path. Exiting....");
+					Console.WriteLine("Press any key....");
+					Console.ReadKey();
 					Environment.Exit(1);
 				}
 				images.Add(new ImageZoomInfo { ImagePath = imagePath });
@@ -108,6 +124,12 @@ namespace SvgTileGenerator {
 			Console.Write("Enter desired tile size (in pixels): ");
 			tileSize = int.Parse(Console.ReadLine() ?? "512");
 			return tileSize;
+		}
+
+		private static bool GetEnableOptimization() {
+			Console.Write("Enable image optimization (compression)? (Y/n): ");
+			var input = Console.ReadLine()?.Trim().ToLower();
+			return input != "n";
 		}
 
 		private static void GetZoomLevels(List<ImageZoomInfo> images) {
@@ -155,11 +177,17 @@ namespace SvgTileGenerator {
 
 		private static long ComputeTotalTileCount(List<ImageZoomInfo> images, int tileSize) {
 			long totalTileCount = 0;
-			foreach(var img in images) {
+			Console.WriteLine("Calculating total tiles. This may take a moment for complex SVGs...");
+			for (int i = 0; i < images.Count; i++) {
+				var img = images[i];
+				var fileName = Path.GetFileName(img.ImagePath);
+				Console.Write($"\rAnalyzing image {i + 1} of {images.Count}: {fileName}...                     ");
+
 				var svg = new SKSvg();
 				svg.Load(img.ImagePath);
 				var picture = svg.Picture;
 				if (picture == null) {
+					Console.WriteLine();
 					Console.WriteLine($"Failed to load SVG: {img.ImagePath}. Skipping.");
 					continue;
 				}
@@ -168,13 +196,16 @@ namespace SvgTileGenerator {
 				var svgHeight = cullRect.Height;
 				for(var zoom = img.MinZoom;zoom <= img.MaxZoom;zoom++) {
 					if (!TryGetTileGrid(svgWidth, svgHeight, tileSize, zoom, out var cols, out var rows, out _, out _)) {
+						Console.WriteLine();
 						Console.WriteLine(
 							$"Zoom level {zoom} has less than 1 tile; skipping until a zoom with >= 1 tile is reached.");
+						Console.Write($"\rAnalyzing image {i + 1} of {images.Count}: {fileName}...                     ");
 						continue;
 					}
 					totalTileCount += (long)cols * rows;
 				}
 			}
+			Console.WriteLine();
 			return totalTileCount;
 		}
 
@@ -182,18 +213,22 @@ namespace SvgTileGenerator {
 			var progressTimer = new Timer(_ => {
 				var processed = Interlocked.Read(ref _processedTileCount);
 				var elapsed = DateTime.Now - startTime;
-				var progressFraction = (double)processed / totalTileCount;
+				var progressFraction = totalTileCount > 0 ? (double)processed / totalTileCount : 0;
 				var percent = progressFraction * 100;
-				var tilesPerSecond = processed / elapsed.TotalSeconds;
+				var tilesPerSecond = elapsed.TotalSeconds > 0 ? processed / elapsed.TotalSeconds : 0;
 				var secondsRemaining = (tilesPerSecond > 0) ? (totalTileCount - processed) / tilesPerSecond : 0;
 				var remaining = TimeSpan.FromSeconds(secondsRemaining);
-				Console.Write("\rProcessed {0}/{1} tiles ({2:F1}%). Elapsed: {3:hh\\:mm\\:ss}. Estimated remaining: {4:hh\\:mm\\:ss}.",
-					processed, totalTileCount, percent, elapsed, remaining);
+
+				var elapsedStr = $"{(int)elapsed.TotalHours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}";
+				var remainingStr = $"{(int)remaining.TotalHours:D2}:{remaining.Minutes:D2}:{remaining.Seconds:D2}";
+
+				Console.Write("\rProcessed {0}/{1} tiles ({2:F1}%). Elapsed: {3}. Estimated remaining: {4}.   ",
+					processed, totalTileCount, percent, elapsedStr, remainingStr);
 			}, null, 1000, 1000);
 			return progressTimer;
 		}
 
-		private static void ProcessImages(List<ImageZoomInfo> images, string outputDir, int tileSize) {
+		private static void ProcessImages(List<ImageZoomInfo> images, string outputDir, int tileSize, bool enableOptimization) {
 			foreach(var img in images) {
 				var svg = new SKSvg();
 				svg.Load(img.ImagePath);
@@ -250,9 +285,16 @@ namespace SvgTileGenerator {
 								Directory.CreateDirectory(xDir);
 								var tileFile = Path.Combine(xDir, $"{y}.png");
 								using (var image = surface.Snapshot())
-								using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
-								using (var stream = File.OpenWrite(tileFile)) {
-									data.SaveTo(stream);
+								using (var data = image.Encode(SKEncodedImageFormat.Png, 100)) {
+									if (enableOptimization) {
+										using (var sourceStream = data.AsStream()) {
+											ImageOptimizer.OptimizeAndSave(sourceStream, tileFile);
+										}
+									} else {
+										using (var stream = File.OpenWrite(tileFile)) {
+											data.SaveTo(stream);
+										}
+									}
 								}
 							}
 							Interlocked.Increment(ref _processedTileCount);
