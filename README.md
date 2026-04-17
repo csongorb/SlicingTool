@@ -6,8 +6,9 @@ Release: A stable release is available on [GitHub Releases](https://github.com/c
 
 This is a very simple tool that converts SVG files into a leaflet PNG tile map. It takes one or more SVG images, slices them into tiles at various zoom levels and combines them into one leaflet usable structure. You can assign zoom ranges for each image to get the wanted transition between images.
 
-<img width="6527" height="2932" alt="Slicing-tool-working" src="https://github.com/user-attachments/assets/131c847f-4d4c-4865-8198-d04c5942ad74" />
-<img width="6195" height="3089" alt="Slicing-tool-guide" src="https://github.com/user-attachments/assets/c25ad59e-8495-4a39-9b93-5f29318f2313" />
+<img width=100% alt="Slicing-tool-working" src="https://github.com/user-attachments/assets/131c847f-4d4c-4865-8198-d04c5942ad74" />
+
+<img width=100% alt="Slicing-tool-guide" src="https://github.com/user-attachments/assets/c25ad59e-8495-4a39-9b93-5f29318f2313" />
 
 ## Guide:
 
