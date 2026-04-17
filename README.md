@@ -1,5 +1,7 @@
 # SlicingTool
 
+[![Version](https://img.shields.io/badge/version-2.0-blue)](https://github.com/csongorb/SlicingTool/releases/) [![C#](https://img.shields.io/badge/C%23-239120?logo=c-sharp&logoColor=white)](https://learn.microsoft.com/en-us/dotnet/csharp/) [![Platform](https://img.shields.io/badge/Platform-Windows_Only-0078D6?logo=windows&logoColor=white)](https://www.microsoft.com/windows) [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/csongorb/SlicingTool/blob/main/LICENSE)
+
 Release: A stable release is available on [GitHub Releases](https://github.com/csongorb/SlicingTool/releases/).
 
 ## Overview
@@ -14,17 +16,17 @@ This is a very simple tool that converts SVG files into a leaflet PNG tile map. 
 
 ### Input Images:
 When prompted, enter the number of SVG images you wish to process. 
-Then provide the file paths to your SVG images (path and “path” are both valid)
+Then provide the file paths to your SVG images (path and “path” are both valid).
 
 ### Output Settings:
 Specify the output directory where the tiles will be saved.
 
-### Set output iamge pixel size:
+### Set Output Image Pixel Size:
 Choose to use the default tile dimension (512 pixels) or enter a custom output file size.
 
 ### Set Zoom Levels:
 For each image, input the minimum and maximum zoom level. They are not allowed to overlap since all of them will be saved to the same output folder. 
-Both can be inputed at the same time by writing min-max (e.g. 1-4). You can also use negative zoom levels (like -2, -4, etc.) for zooming out on very large SVGs.
+Both can be inputted at the same time by writing min-max (e.g. 1-4). You can also use negative zoom levels (like -2, -4, etc.) for zooming out on very large SVGs.
 
 ### Image Compression:
 The tool supports automatic image optimization for the generated PNG tiles to greatly reduce file size. This feature relies on [oxipng](https://github.com/oxipng/oxipng), an external PNG optimizer.
